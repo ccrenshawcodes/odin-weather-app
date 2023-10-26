@@ -5,3 +5,54 @@
     padding: 0;
     font-family: 'Nunito Sans', sans-serif;
 }
+
+.content {
+    height: 100vh;
+}
+
+.top-ribbon {
+    display: flex;
+    padding: 1em;
+}
+
+.location {
+    display: flex;
+    width: 100vw;
+    justify-content: center;
+    padding: 1em;
+}
+
+.time-frame {
+    display: flex;
+    justify-content: space-evenly;
+
+}
+
+.time {
+    flex: 1;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    padding: 1.5em;
+}
+
+.alerts {
+    background-color: rgb(250, 104, 104);
+    display: flex;
+    padding: 1.5em;
+}
+
+.display {
+    display: flex;
+    width: 100vw;
+    height: 50%;
+}
+
+.display > .col {
+    border: 1px solid black;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}

@@ -9,28 +9,44 @@
 <body>
     <div class="content">
         <div class="top-ribbon">
-            <h1>Slicker</h1>
-            <h2>Your Weather App</h2>
-            <input type="checkbox" class="temp-type">
+            <div class="titles">
+                <h1>Slicker</h1>
+                <h2>Your Weather App</h2>
+            </div>
+            <div class="utilities">
+                <div class="location">
+                    <input type="search" class="location-search">
+                    <button>Go</button>
+                </div>
+                <input type="checkbox" class="temp-type">
+            </div>
         </div>
 
-        <div class="location">
-            <input type="search" class="location-search">
-            <button>Go</button>
+        <div class="loc-acquired hidden">
+            <div class="location-now">
+                <h5>Now viewing weather for: </h5>
+                <h5 class="loc-indicator"></h5>
+            </div>
+    
+            <div class="time-frame">
+                <div class="time now">Now</div>
+                <div class="time today">Today</div>
+                <div class="time tomorrow">Tomorrow</div>
+                <div class="time three-days">Three Days</div>
+            </div>
+            
+            <div class="weather-display">
+                <div class="alerts"></div>
+            </div>
         </div>
 
-        <div class="time-frame">
-            <div class="time now">Now</div>
-            <div class="time today">Today</div>
-            <div class="time tomorrow">Tomorrow</div>
-            <div class="time three-days">Three Days</div>
+        <div class="loc-unknown">
+            <div class="alerts no-loc">
+                Please enter a location!
+            </div>
+            <h3>"There's no such thing as bad weather, just the wrong clothing."</h3>
         </div>
 
-        <div class="alerts">Freeze warning</div>
-        <div class="display">
-            <div class="left col current">56*</div>
-            <div class="right col current">Cloudy</div>
-        </div>
     </div>
     <script src="app.js"></script>
 </body>

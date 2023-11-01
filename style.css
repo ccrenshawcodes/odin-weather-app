@@ -15,17 +15,31 @@
     padding: 1em;
 }
 
-.location {
+.titles {
+    flex: 1;
+}
+
+.utilities {
     display: flex;
-    width: 100vw;
-    justify-content: center;
-    padding: 1em;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.temp-type {
+    align-self: flex-end;
+}
+
+.loc-acquired {
+    height: inherit;
+}
+
+.weather-display {
+    height: inherit;
 }
 
 .time-frame {
     display: flex;
     justify-content: space-evenly;
-
 }
 
 .time {
@@ -55,4 +69,8 @@
     justify-content: center;
     align-items: center;
     height: 100%;
+}
+
+.hidden {
+    display: none;
 }

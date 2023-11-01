@@ -26,8 +26,9 @@ function toggleLocKnownView () {
 
 const goButton = document.querySelector('button');
 goButton.addEventListener('click', async () => {
-    let locationValue = document.querySelector('.location-search').value;
-    myLocation.q = locationValue;
+    let locationValue = document.querySelector('.location-search');
+    myLocation.q = locationValue.value;
+    locationValue.value = '';
     toggleLocKnownView();
     nowLayout();
     let data = await getWeather(myLocation.q);
@@ -57,15 +58,21 @@ function populateDayWeather (weatherObj, day) {
 }
 
 function populateThreeDaysWeather (weatherObj) {
-    //  TODO build this all out once the correct divs are in place
-    //  inside threeDaysLayout
+    const columns = document.querySelectorAll('.col');
+    let counter = 0;
+    columns.forEach(col => {
+        let top = col.querySelector(`.top`);
+        let bottom = col.querySelector(`.bottom`);
+        top.textContent = weatherObj.forecast.forecastday[counter].day.maxtemp_f;
+        bottom.textContent = weatherObj.forecast.forecastday[counter].day.condition.text;
+        counter++;
+    })
 }
 
 function clearLayout () {
     weatherDisplay = document.querySelector('.weather-display');
     while (weatherDisplay.firstChild) {
         weatherDisplay.removeChild(weatherDisplay.lastChild);
-        console.log('got one');
     }
 }
 
@@ -77,10 +84,8 @@ function nowLayout () {
     const rightCol = document.createElement('div');
 
     mainDisplay.classList.add('display', 'main');
-    leftCol.classList.add('left');
-    leftCol.classList.add('col');
-    rightCol.classList.add('right');
-    rightCol.classList.add('col');
+    leftCol.classList.add('left', 'col');
+    rightCol.classList.add('right', 'col');
 
     mainDisplay.appendChild(leftCol);
     mainDisplay.appendChild(rightCol);
@@ -104,9 +109,13 @@ function todayTmrwLayout () {
 
     const hourly = document.createElement('div');
     hourly.classList.add('hourly');
-    //  TODO: add divs for 12 or 24 hours and append them to this
-    weatherDisplay.appendChild(hourly);
 
+    for (let i = 0; i < 24; i++) {
+        const hourDiv = document.createElement('div');
+        hourDiv.classList.add('hour', `hour-${i}`);
+        hourly.appendChild(hourDiv);
+    }
+    weatherDisplay.appendChild(hourly);
 }
 
 function threeDaysLayout () {
@@ -124,14 +133,20 @@ function threeDaysLayout () {
     middleCol.classList.add('middle', 'col', '3');
     rightCol.classList.add('right', 'col', '3');
 
-    //  TODO: add hi/lo cells to each column
-    //  so that it becomes a grid of 6
-
     mainDisplay.appendChild(leftCol);
     mainDisplay.appendChild(middleCol);
     mainDisplay.appendChild(rightCol);
-
     weatherDisplay.appendChild(mainDisplay);
+
+    const columns = document.querySelectorAll('.col');
+        columns.forEach(col => {
+        const topCell = document.createElement('div');
+        const bottomCell = document.createElement('div');
+        topCell.classList.add('top', 'cell');
+        bottomCell.classList.add('bottom', 'cell');
+        col.appendChild(topCell);
+        col.appendChild(bottomCell);
+    })
 }
 
 const nowButton = document.querySelector('.now');

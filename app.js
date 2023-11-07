@@ -34,11 +34,29 @@ goButton.addEventListener('click', async () => {
     let data = await getWeather(myLocation.q);
     setLocationTitle(data);
     populateCurrentWeather(data);
+    showAlerts(data);
 });
 
 function setLocationTitle (loc) {
     const locTitle = document.querySelector('.loc-indicator');
-    locTitle.textContent = `${loc.location.name}, ${loc.location.region}, ${loc.location.country}`;
+    locTitle.textContent = ` ${loc.location.name}, ${loc.location.region}, ${loc.location.country}`;
+}
+
+function showAlerts (weatherObj) {
+    const alerts = weatherObj.alerts.alert;
+    const banner = document.querySelector('.weather-alerts');
+
+    if (alerts.length > 0) {
+        alerts.forEach(item => {
+            if (item.msgtype === 'Alert') {
+                banner.classList.remove('hidden');
+                banner.textContent = item.event;
+            }
+        })
+    } else {
+        banner.classList.add('hidden');
+        banner.textContent = '';
+    }
 }
 
 function populateCurrentWeather (weatherObj) {
@@ -84,8 +102,8 @@ function nowLayout () {
     const rightCol = document.createElement('div');
 
     mainDisplay.classList.add('display', 'main');
-    leftCol.classList.add('left', 'col');
-    rightCol.classList.add('right', 'col');
+    leftCol.classList.add('left', 'col', 'n');
+    rightCol.classList.add('right', 'col', 'n');
 
     mainDisplay.appendChild(leftCol);
     mainDisplay.appendChild(rightCol);
@@ -149,30 +167,44 @@ function threeDaysLayout () {
     })
 }
 
+function toggleActiveTab (tab) {
+    const tabs = document.querySelectorAll('.time');
+    tabs.forEach(one => {
+        if (one.classList.contains('active')) {
+            one.classList.remove('active');
+        }
+    })
+    tab.classList.add('active');
+}
+
 const nowButton = document.querySelector('.now');
 const todayButton = document.querySelector('.today');
 const tomorrowButton = document.querySelector('.tomorrow');
 const threeDaysButton = document.querySelector('.three-days');
 
 nowButton.addEventListener('click', async () => {
+    toggleActiveTab(nowButton);
     nowLayout();
     let data = await getWeather(myLocation.q);
     populateCurrentWeather(data);
 })
 
 todayButton.addEventListener('click', async () => {
+    toggleActiveTab(todayButton);
     todayTmrwLayout();
     let data = await getWeather(myLocation.q);
     populateDayWeather(data, 0);
 })
 
 tomorrowButton.addEventListener('click', async () => {
+    toggleActiveTab(tomorrowButton);
     todayTmrwLayout();
     let data = await getWeather(myLocation.q);
     populateDayWeather(data, 1);
 })
 
 threeDaysButton.addEventListener('click', async () => {
+    toggleActiveTab(threeDaysButton);
     threeDaysLayout();
     let data = await getWeather(myLocation.q);
     populateThreeDaysWeather(data);

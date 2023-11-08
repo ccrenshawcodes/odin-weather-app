@@ -1,4 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,200;6..12,300;6..12,500&display=swap');
+
+:root {
+    --sunny-color: #c1eaf5;
+    --cloudy-one: #cfe1e6;
+    --cloudy-two: #bccbcf;
+    --precip-one: #d3d9db;
+    --precip-two: #c3c6c7;
+    --snowy: #ededed;
+    --thunder: #828485;
+    --night: #213885;
+}
 
 * {
     margin: 0;
@@ -8,6 +19,8 @@
 
 .content {
     height: 100vh;
+    background-color: var(--cloudy-one);
+    transition: background-color 1s ease;
 }
 
 .top-ribbon {
@@ -25,16 +38,15 @@
     justify-content: space-around;
 }
 
-.temp-type {
-    align-self: flex-end;
-}
-
 .loc-acquired {
     height: inherit;
 }
 
-.weather-display {
-    height: inherit;
+.location-now {
+    display: flex;
+    gap: 0.5em;
+    justify-content: center;
+    padding: 0.5em;
 }
 
 .time-frame {
@@ -56,6 +68,10 @@
     padding: 1.5em;
 }
 
+.weather-display {
+    height: inherit;
+}
+
 .display {
     display: flex;
     width: 100vw;
@@ -69,8 +85,30 @@
     justify-content: center;
     align-items: center;
     height: 100%;
+    padding: 20px;
+}
+
+.display > .left.n {
+    font-size: 1500%;
+    font-weight: lighter;
+    display: flex;
+    flex-direction: column;
+}
+
+.display > .right.n {
+    font-size: 1000%;
+    font-weight: lighter;
 }
 
 .hidden {
     display: none;
+}
+
+.active {
+    background-color: orange;
+}
+
+.loc-unknown > h3 {
+    margin: 1em;
+    width: 60%;
 }

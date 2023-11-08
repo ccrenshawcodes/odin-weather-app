@@ -25,11 +25,39 @@ function toggleLocKnownView () {
 }
 
 const goButton = document.querySelector('button');
-goButton.addEventListener('click', async () => {
+goButton.addEventListener('click', () => {
+    setCurrentLocation();
+    toggleLocKnownView();
+    showInitial();
+});
+
+const locInput = document.querySelector('.location-search');
+locInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        goButton.click();
+    }
+})
+
+function setCurrentLocation () {
     let locationValue = document.querySelector('.location-search');
     myLocation.q = locationValue.value;
     locationValue.value = '';
-    toggleLocKnownView();
+}
+
+function setTempScale (val) {
+    myLocation.scale = val;
+    if (myLocation.q) {
+        showInitial();
+    }
+}
+
+function setLocationTitle (loc) {
+    const locTitle = document.querySelector('.loc-indicator');
+    locTitle.textContent = ` ${loc.location.name}, ${loc.location.region}, ${loc.location.country}`;
+}
+
+async function showInitial () {
     loadingScreen();
     let data = await getWeather(myLocation.q);
     nowLayout();
@@ -37,11 +65,7 @@ goButton.addEventListener('click', async () => {
     changePageAppearance(data);
     populateCurrentWeather(data);
     showAlerts(data);
-});
-
-function setLocationTitle (loc) {
-    const locTitle = document.querySelector('.loc-indicator');
-    locTitle.textContent = ` ${loc.location.name}, ${loc.location.region}, ${loc.location.country}`;
+    toggleActiveTab(document.querySelector('.now'));
 }
 
 function showAlerts (weatherObj) {
@@ -62,19 +86,21 @@ function showAlerts (weatherObj) {
 }
 
 function populateCurrentWeather (weatherObj) {
-    const foo = `temp_${myLocation.scale}`;
+    const scale = `temp_${myLocation.scale}`;
     let nowTemp = document.querySelector('.left');
     let nowCondition = document.querySelector('.right');
-    nowTemp.textContent = weatherObj.current[foo];
+    nowTemp.textContent = `${weatherObj.current[scale]}*${myLocation.scale}`;
     nowCondition.textContent = weatherObj.current.condition.text;
 }
 
 function populateDayWeather (weatherObj, day) {
+    const maxScale = `maxtemp_${myLocation.scale}`;
+    const minScale = `mintemp_${myLocation.scale}`;
     let todayMax = document.querySelector('.left-top');
     let todayMin = document.querySelector('.left-bottom');
     let todayCondition = document.querySelector('.right');
-    todayMax.textContent = weatherObj.forecast.forecastday[day].day.maxtemp_f;
-    todayMin.textContent = weatherObj.forecast.forecastday[day].day.mintemp_f;
+    todayMax.textContent = `${weatherObj.forecast.forecastday[day].day[maxScale]}`;
+    todayMin.textContent = `${weatherObj.forecast.forecastday[day].day[minScale]}`;
     todayCondition.textContent = weatherObj.forecast.forecastday[day].day.condition.text;
 }
 
@@ -225,6 +251,12 @@ threeDaysButton.addEventListener('click', async () => {
     let data = await getWeather(myLocation.q);
     threeDaysLayout();
     populateThreeDaysWeather(data);
+})
+
+const scaleSelector = document.querySelector('#temp-type');
+scaleSelector.addEventListener('input', (e) => {
+    setTempScale(e.target.value);
+    console.log(myLocation.scale);
 })
 
 function changePageAppearance (weatherObj) {

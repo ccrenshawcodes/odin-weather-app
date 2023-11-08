@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SLICKER - Your Weather App</title>
+    <link rel="icon" href="umbrella.png">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="content">
         <div class="top-ribbon">
+            <img src="umbrella.png" alt="an umbrella">
             <div class="titles">
                 <h1>Slicker</h1>
                 <h3>Your Weather App</h3>
@@ -18,7 +20,10 @@
                     <input type="search" class="location-search">
                     <button>Go</button>
                 </div>
-                <input type="checkbox" class="temp-type">
+                <select name="temp-type" id="temp-type">
+                    <option value="f">Fahrenheit</option>
+                    <option value="c">Celsius</option>
+                </select>
             </div>
         </div>
 

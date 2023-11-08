@@ -106,6 +106,7 @@
     align-items: center;
     height: 100%;
     padding: 20px;
+    text-align: center;
 }
 
 .display > .left.n {
@@ -118,6 +119,29 @@
 .display > .right.n {
     font-size: 700%;
     font-weight: lighter;
+}
+
+.col.three {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.three > .cell {
+    font-family: 'Saira', sans-serif;
+    font-size: 300%;
+    text-align: center;
+}
+
+.cell > * {
+    font-family: 'Saira', sans-serif;
+    /* text-align: center; */
+}
+
+.three > .top {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .hidden {

@@ -106,11 +106,15 @@ function populateDayWeather (weatherObj, day) {
 
 function populateThreeDaysWeather (weatherObj) {
     const columns = document.querySelectorAll('.col');
+    const maxScale = `maxtemp_${myLocation.scale}`;
+    const minScale = `mintemp_${myLocation.scale}`;
     let counter = 0;
     columns.forEach(col => {
-        let top = col.querySelector(`.top`);
+        let topHi = col.querySelector('.top-high');
+        let topLo = col.querySelector('.top-low');
         let bottom = col.querySelector(`.bottom`);
-        top.textContent = weatherObj.forecast.forecastday[counter].day.maxtemp_f;
+        topHi.textContent = weatherObj.forecast.forecastday[counter].day[maxScale];
+        topLo.textContent = weatherObj.forecast.forecastday[counter].day[minScale];
         bottom.textContent = weatherObj.forecast.forecastday[counter].day.condition.text;
         counter++;
     })
@@ -186,9 +190,9 @@ function threeDaysLayout () {
     const middleCol = document.createElement('div');
     const rightCol = document.createElement('div');
 
-    leftCol.classList.add('left', 'col', '3');
-    middleCol.classList.add('middle', 'col', '3');
-    rightCol.classList.add('right', 'col', '3');
+    leftCol.classList.add('left', 'col', 'three');
+    middleCol.classList.add('middle', 'col', 'three');
+    rightCol.classList.add('right', 'col', 'three');
 
     mainDisplay.appendChild(leftCol);
     mainDisplay.appendChild(middleCol);
@@ -198,9 +202,15 @@ function threeDaysLayout () {
     const columns = document.querySelectorAll('.col');
         columns.forEach(col => {
         const topCell = document.createElement('div');
+        const topHigh = document.createElement('div');
+        const topLow = document.createElement('div');
         const bottomCell = document.createElement('div');
         topCell.classList.add('top', 'cell');
+        topHigh.classList.add('top-high');
+        topLow.classList.add('top-low');
         bottomCell.classList.add('bottom', 'cell');
+        topCell.appendChild(topHigh);
+        topCell.appendChild(topLow);
         col.appendChild(topCell);
         col.appendChild(bottomCell);
     })

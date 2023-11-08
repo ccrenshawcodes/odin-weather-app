@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,200;6..12,300;6..12,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,200;6..12,300;6..12,500&family=Saira:wght@100&display=swap');
 
 :root {
     --sunny-color: #c1eaf5;
@@ -46,7 +46,8 @@
     display: flex;
     gap: 0.5em;
     justify-content: center;
-    padding: 0.5em;
+    padding: 1em;
+    font-size: larger;
 }
 
 .time-frame {
@@ -72,6 +73,14 @@
     height: inherit;
 }
 
+.loading-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3em;
+    font-size: larger;
+}
+
 .display {
     display: flex;
     width: 100vw;
@@ -79,8 +88,9 @@
 }
 
 .display > .col {
-    border: 1px solid black;
+    font-family: 'Saira', sans-serif;
     flex: 1;
+    border: 1px solid black;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -89,14 +99,14 @@
 }
 
 .display > .left.n {
-    font-size: 1500%;
+    font-size: 800%;
     font-weight: lighter;
     display: flex;
     flex-direction: column;
 }
 
 .display > .right.n {
-    font-size: 1000%;
+    font-size: 700%;
     font-weight: lighter;
 }
 

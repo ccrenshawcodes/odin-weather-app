@@ -30,8 +30,9 @@ goButton.addEventListener('click', async () => {
     myLocation.q = locationValue.value;
     locationValue.value = '';
     toggleLocKnownView();
-    nowLayout();
+    loadingScreen();
     let data = await getWeather(myLocation.q);
+    nowLayout();
     setLocationTitle(data);
     changePageAppearance(data);
     populateCurrentWeather(data);
@@ -94,6 +95,16 @@ function clearLayout () {
     while (weatherDisplay.firstChild) {
         weatherDisplay.removeChild(weatherDisplay.lastChild);
     }
+}
+
+function loadingScreen () {
+    const display = document.querySelector('.weather-display');
+    const loadingDiv = document.createElement('div');
+    loadingDiv.classList.add('loading-screen');
+    loadingDiv.textContent = 'loading...';
+
+    clearLayout();
+    display.appendChild(loadingDiv);
 }
 
 function nowLayout () {
@@ -186,29 +197,33 @@ const threeDaysButton = document.querySelector('.three-days');
 
 nowButton.addEventListener('click', async () => {
     toggleActiveTab(nowButton);
-    nowLayout();
+    loadingScreen();
     let data = await getWeather(myLocation.q);
+    nowLayout();
     populateCurrentWeather(data);
 })
 
 todayButton.addEventListener('click', async () => {
     toggleActiveTab(todayButton);
-    todayTmrwLayout();
+    loadingScreen();
     let data = await getWeather(myLocation.q);
+    todayTmrwLayout();
     populateDayWeather(data, 0);
 })
 
 tomorrowButton.addEventListener('click', async () => {
     toggleActiveTab(tomorrowButton);
-    todayTmrwLayout();
+    loadingScreen();
     let data = await getWeather(myLocation.q);
+    todayTmrwLayout();
     populateDayWeather(data, 1);
 })
 
 threeDaysButton.addEventListener('click', async () => {
     toggleActiveTab(threeDaysButton);
-    threeDaysLayout();
+    loadingScreen();
     let data = await getWeather(myLocation.q);
+    threeDaysLayout();
     populateThreeDaysWeather(data);
 })
 

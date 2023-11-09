@@ -21,7 +21,6 @@ async function getWeather (q) {
 }
 
 function toggleLocKnownView () {
-    console.log('we toggled the view!');
     const locUnknown = document.querySelector('.loc-unknown');
     const locKnown = document.querySelector('.loc-acquired');
 
@@ -303,7 +302,6 @@ threeDaysButton.addEventListener('click', async () => {
 const scaleSelector = document.querySelector('#temp-type');
 scaleSelector.addEventListener('input', (e) => {
     setTempScale(e.target.value);
-    console.log(myLocation.scale);
 })
 
 function changePageAppearance (weatherObj) {

@@ -6,7 +6,7 @@ const myLocation = {
 
 async function getWeather (q) {
     try {
-        const threeDaysWeather = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${myKey}&q=${q}&days=3&alerts=yes`);
+        const threeDaysWeather = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=${myKey}&q=${q}&days=3&alerts=yes`);
         if (!threeDaysWeather.ok) {
             throw new Error(threeDaysWeather.status);
         }

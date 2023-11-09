@@ -20,34 +20,76 @@
 
 .content {
     height: 100vh;
-    background-color: var(--cloudy-one);
+    background-color: #dbf7ff;
     transition: background-color 1s ease;
+    display: flex;
+    flex-direction: column;
 }
 
 .top-ribbon {
+    flex: 1;
     display: flex;
-    padding: 1em;
+    padding: 1em 1em 0 1em;
     gap: 1em;
 }
 
-.top-ribbon>img {
+.top-ribbon > img {
     height: 4em;
     width: 5em;
 }
 
 .titles {
-    flex: 1;
+    flex: 3;
     padding: 0.5em;
 }
 
 .utilities {
+    height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    gap: 0.5em;
+    justify-content: space-evenly;
+}
+
+.location-search {
+    padding: 0.5em;
+    border-radius: 5px;
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: inherit;
+    font-size: larger;
+    margin: 0 1em;
+    &:focus {
+        outline: none;
+    }
+}
+
+.location > button {
+    padding: 0.5em;
+    width: 5em;
+    border-radius: 5px;
+    border: none;
+    background-color: orange;
+    font-size: larger;
+    transition: all 0.2s ease;
+    &:hover {
+        cursor: pointer;
+        box-shadow: 5px 5px 5px 0px #C4C6C6;
+    }
+}
+
+#temp-type {
+    background-color: inherit;
+    border: none;
+    font-size: large;
+    padding: 0.5em;
+    &:focus {
+        outline: none;
+    }
 }
 
 .loc-acquired {
-    height: inherit;
+    flex: 8;
 }
 
 .location-now {
@@ -70,6 +112,9 @@
     justify-content: center;
     padding: 1.5em;
     transition: background-color 0.5s ease;
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 .alerts {
@@ -80,7 +125,7 @@
 }
 
 .weather-display {
-    height: inherit;
+    height: 70%;
 }
 
 .loading-screen {
@@ -94,7 +139,7 @@
 .display {
     display: flex;
     width: 100vw;
-    height: 50%;
+    height: 100%;
 }
 
 .display > .col {
@@ -144,18 +189,14 @@
     justify-content: space-evenly;
 }
 
-.hidden {
-    display: none;
-}
-
 .active {
     background-color: orange;
 }
 
 .loc-unknown {
+    flex: 8;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     width: inherit;
 }
@@ -167,4 +208,8 @@
 
 .loc-unknown > h3 {
     margin: 3em 0;
+}
+
+.hidden {
+    display: none;
 }

@@ -5,10 +5,16 @@ const myLocation = {
 };
 
 async function getWeather (q) {
-    const threeDaysWeather = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${myKey}&q=${q}&days=3&alerts=yes`);
-    weatherData = await threeDaysWeather.json();
-    console.log(weatherData);
-    return weatherData;
+    try {
+        const threeDaysWeather = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${myKey}&q=${q}&days=3&alerts=yes`);
+        weatherData = await threeDaysWeather.json();
+        console.log(weatherData);
+        return weatherData;
+    } catch (error) {
+        alert('There was a problem with this request. Please try again');
+        console.log(error);
+    }
+
 }
 
 function toggleLocKnownView () {
@@ -41,8 +47,10 @@ locInput.addEventListener('keypress', (e) => {
 
 function setCurrentLocation () {
     let locationValue = document.querySelector('.location-search');
-    myLocation.q = locationValue.value;
-    locationValue.value = '';
+    if (locationValue.value) {
+        myLocation.q = locationValue.value;
+        locationValue.value = '';
+    }
 }
 
 function setTempScale (val) {
@@ -99,8 +107,8 @@ function populateDayWeather (weatherObj, day) {
     let todayMax = document.querySelector('.left-top');
     let todayMin = document.querySelector('.left-bottom');
     let todayCondition = document.querySelector('.right');
-    todayMax.textContent = `${weatherObj.forecast.forecastday[day].day[maxScale]}`;
-    todayMin.textContent = `${weatherObj.forecast.forecastday[day].day[minScale]}`;
+    todayMax.textContent = `High: ${weatherObj.forecast.forecastday[day].day[maxScale]}`;
+    todayMin.textContent = `Low: ${weatherObj.forecast.forecastday[day].day[minScale]}`;
     todayCondition.textContent = weatherObj.forecast.forecastday[day].day.condition.text;
 }
 
@@ -113,8 +121,8 @@ function populateThreeDaysWeather (weatherObj) {
         let topHi = col.querySelector('.top-high');
         let topLo = col.querySelector('.top-low');
         let bottom = col.querySelector(`.bottom`);
-        topHi.textContent = weatherObj.forecast.forecastday[counter].day[maxScale];
-        topLo.textContent = weatherObj.forecast.forecastday[counter].day[minScale];
+        topHi.textContent = `High: ${weatherObj.forecast.forecastday[counter].day[maxScale]}`;
+        topLo.textContent = `Low: ${weatherObj.forecast.forecastday[counter].day[minScale]}`;
         bottom.textContent = weatherObj.forecast.forecastday[counter].day.condition.text;
         counter++;
     })

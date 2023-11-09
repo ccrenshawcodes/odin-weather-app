@@ -7,17 +7,21 @@ const myLocation = {
 async function getWeather (q) {
     try {
         const threeDaysWeather = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${myKey}&q=${q}&days=3&alerts=yes`);
+        if (!threeDaysWeather.ok) {
+            throw new Error(threeDaysWeather.status);
+        }
         weatherData = await threeDaysWeather.json();
         console.log(weatherData);
         return weatherData;
-    } catch (error) {
-        alert('There was a problem with this request. Please try again');
-        console.log(error);
+    } catch (err) {
+        alert('An error occurred. Please try again');
+        console.log(err);
+        return null;
     }
-
 }
 
 function toggleLocKnownView () {
+    console.log('we toggled the view!');
     const locUnknown = document.querySelector('.loc-unknown');
     const locKnown = document.querySelector('.loc-acquired');
 
@@ -68,12 +72,17 @@ function setLocationTitle (loc) {
 async function showInitial () {
     loadingScreen();
     let data = await getWeather(myLocation.q);
-    nowLayout();
-    setLocationTitle(data);
-    changePageAppearance(data);
-    populateCurrentWeather(data);
-    showAlerts(data);
-    toggleActiveTab(document.querySelector('.now'));
+    if (data) {
+        nowLayout();
+        setLocationTitle(data);
+        changePageAppearance(data);
+        populateCurrentWeather(data);
+        showAlerts(data);
+        toggleActiveTab(document.querySelector('.now'));
+    } else {
+        myLocation.q = '';
+        toggleLocKnownView();
+    }
 }
 
 function showAlerts (weatherObj) {
@@ -243,32 +252,52 @@ nowButton.addEventListener('click', async () => {
     toggleActiveTab(nowButton);
     loadingScreen();
     let data = await getWeather(myLocation.q);
-    nowLayout();
-    populateCurrentWeather(data);
+    if (data) {
+        nowLayout();
+        populateCurrentWeather(data);
+    } else {
+        myLocation.q = '';
+        toggleLocKnownView();
+    }
 })
 
 todayButton.addEventListener('click', async () => {
     toggleActiveTab(todayButton);
     loadingScreen();
     let data = await getWeather(myLocation.q);
-    todayTmrwLayout();
-    populateDayWeather(data, 0);
+    if (data) {
+        todayTmrwLayout();
+        populateDayWeather(data, 0);
+    } else {
+        myLocation.q = '';
+        toggleLocKnownView();
+    }
 })
 
 tomorrowButton.addEventListener('click', async () => {
     toggleActiveTab(tomorrowButton);
     loadingScreen();
     let data = await getWeather(myLocation.q);
-    todayTmrwLayout();
-    populateDayWeather(data, 1);
+    if (data) {
+        todayTmrwLayout();
+        populateDayWeather(data, 1);
+    } else {
+        myLocation.q = '';
+        toggleLocKnownView();
+    }
 })
 
 threeDaysButton.addEventListener('click', async () => {
     toggleActiveTab(threeDaysButton);
     loadingScreen();
     let data = await getWeather(myLocation.q);
-    threeDaysLayout();
-    populateThreeDaysWeather(data);
+    if (data) {
+        threeDaysLayout();
+        populateThreeDaysWeather(data);
+    } else {
+        myLocation.q = '';
+        toggleLocKnownView();
+    }
 })
 
 const scaleSelector = document.querySelector('#temp-type');

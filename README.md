@@ -1,10 +1,12 @@
-# odin-weather-app
+# Weather app - The Odin Project
 
-Requirements:
-1. Can search for specific locations
-2. Can toggle fahrenheit/celsius 
-3. Page changes appearance based on returned data
-4. Shows 3 days of weather
+![image](https://github.com/user-attachments/assets/41de73d2-b647-4b91-bbcd-a25cb1b7f409)
+![image](https://github.com/user-attachments/assets/c28b8836-c787-4e66-966c-7465f886fcd8)
 
-An exercise in using APIs and Promises + async/await.
 Slicker is another name for a rain coat.
+
+## Built with:
+- WeatherAPI
+
+## Credits and Acknowledgements
+- I do not own the images on this site
